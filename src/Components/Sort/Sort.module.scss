@@ -1,0 +1,63 @@
+@import '/src/scss/variables';
+
+.sort {
+  position: relative;
+  display: none;
+  
+  @media (min-width: 768px) {
+    display: block;
+  }
+
+  .label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    
+    svg {
+      margin-right: 5px;
+      transition: transform .2s ease-in-out;
+    }
+
+    .svgActive {
+      transform: rotate(180deg);
+    }
+
+    b {
+      margin-right: 8px;
+    }
+
+    span {
+      color: $primary;
+    }
+  }
+
+  .popup {
+    position: absolute;
+    right: 0;
+    top: 40px;
+    background-color: #fff;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+
+    ul {
+      padding: 20px 0;
+      li {
+        padding: 10px 20px;
+        font-size: 16px;
+        transition: all .2s ease-in-out;
+        cursor: pointer;
+        white-space: nowrap;
+
+        &:hover {
+          color: $primary;
+          background-color: rgba($primary, 0.1);
+        }
+      }
+
+      .active {
+        color: $primary;
+        background-color: rgba($primary, 0.1);
+      }
+    }
+  }
+}

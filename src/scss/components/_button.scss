@@ -1,0 +1,58 @@
+@import '../variables';
+
+.button {
+  padding: 16px 30px;
+  border-radius: 30px;
+  background-color: $primary;
+  font-weight: 700;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  line-height: 19px;
+  text-align: center;
+  text-decoration: none;
+  color: #FFFFFF;
+  transition: all .2s ease-in-out;
+  display: inline-block;
+  cursor: pointer;
+
+  svg {
+    margin-right: 10px;
+    transform: translateY(1px);
+
+    path {
+      transition: all .2s ease-in-out;
+    }
+  }
+  
+  &:hover {
+    background-color: darken($primary, 10);
+  }
+
+  &--back {
+    background-color: transparent;
+    border: 1px solid $light-grey;
+    border-radius: 30px;
+    color: $light-grey;
+    font-weight: 400;
+
+    svg {
+      display: none;
+      @media (min-width: 768px) {
+        display: inline;
+      }
+    }
+
+    &:hover {
+      background-color: transparent;
+      border: 1px solid $primary;
+      color: $primary;
+
+      svg {
+        path {
+          stroke: $primary;
+        }
+      }
+    }
+  }
+}

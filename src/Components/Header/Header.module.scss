@@ -1,0 +1,258 @@
+@import '/src/scss/variables';
+
+.header {
+  padding: 15px 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  
+  @media (min-width: 768px) {
+    position: relative;
+  }
+
+  .headerTop {  
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    display: none;
+
+    @media (min-width: 768px) { display: flex; }
+  }
+
+  .headerTopRight {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .mainNav {
+    ul {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      li {
+        a {
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 19px;
+          color: #FFFFFF;
+          transition: color .2s ease-in;
+          cursor: pointer;
+          text-decoration: underline;
+
+
+          &:hover {
+            color: $primary;
+          }
+        }
+      }
+    }
+  }
+  
+  .headerText {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    color: #FFFFFF;
+  }
+
+  .headerLink {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    color: #FFFFFF;
+    transition: color .2s ease-in;
+    cursor: pointer;
+
+    &:hover {
+      color: $primary;
+    }
+  }
+
+  .headerMain {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    @media (min-width: 768px) {
+      justify-content: flex-start;
+    }
+  }
+
+  .headerCart {
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    transition: background-color .2s ease-in-out;
+
+    @media (min-width: 768px) {
+      margin-left: auto;
+    }
+
+    @media (min-width: 1200px) {
+      padding: 10px 30px;
+      background-color: $primary;
+      border-radius: 30px;
+
+      &:hover {
+        background-color: darken($primary, 5);
+      }
+    }
+
+    .total {
+      display: none;
+      font-weight: 700;
+      font-size: 17px;
+      line-height: 25px;
+      /* identical to box height */
+      color: #FFFFFF;
+      padding-right: 13px;
+      border-right: 1px solid rgba($color: #fff, $alpha: .25);
+
+      @media (min-width: 1200px) {
+        display: block;
+      }
+    }
+
+    .icon {
+      line-height: 0;
+      @media (min-width: 1200px) {
+        margin-left: 13px;
+        margin-right: 8px;
+      }
+    }
+
+    .count {
+      font-weight: 700;
+      font-size: 17px;
+      line-height: 30px;
+      color: #FFFFFF;
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      width: 30px;
+      text-align: center;
+      height: 30px;
+      border-radius: 100%;
+      background-color: $primary;
+
+      @media (min-width: 1200px) {
+        position: relative;
+        width: auto;
+        line-height: 26px;
+        top: auto;
+        right: auto;
+        background-color: transparent;
+      }
+    }
+  }
+
+  .logo {
+    line-height: 0;
+    margin: 0 auto;
+    width: 100px;
+    cursor: pointer;
+
+    @media (min-width: 768px) {
+      margin-left: 0;
+      margin-right: 25px;
+    }
+
+    @media (min-width: 1200px) {
+      width: 125px;
+    }
+    
+    img {
+      width: 100%;
+      height: auto;
+      
+    }
+  }
+
+  .mobileMenuBtn {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+
+    @media (min-width: 768px) { display: none; }
+
+    span {
+      margin: 3px 0;
+      width: 30px;
+      height: 3px;
+      border-radius: 3px;
+      background-color: #fff;
+    }
+  }
+
+  .catNav {
+    display: none;
+
+    ul {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+
+      li {
+        a {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+
+          i {
+            margin-bottom: 6px;
+            svg {
+              height: 35px;
+
+              path {
+                transition: fill .2s ease-in-out;
+              }
+
+              @media (min-width: 1200px) {
+                height: 40px;
+              }
+            }
+          }
+
+          span {
+            font-weight: 700;
+            font-size: 15px;
+            line-height: 20px;
+            text-transform: uppercase;
+            color: #FFFFFF;
+            transition: color .2s ease-in-out;
+
+            @media (min-width: 1200px) {
+              font-size: 16px;
+             line-height: 27px;
+            }
+          }
+
+          &:hover {
+            span {
+              color: $primary;
+            }
+
+            i {
+              svg {
+                path {
+                  fill: $primary;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    @media (min-width: 768px) { display: block; }
+  }
+} 
+

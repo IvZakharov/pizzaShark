@@ -1,0 +1,48 @@
+@import '/src/scss/variables';
+
+.notFound {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 60px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  @media (min-width: 768px) {
+    padding: 80px 0;
+  }
+
+ .title {
+  font-weight: 700;
+  font-size: 120px;
+  line-height: 180px;
+  text-align: center;
+  color: #222222;
+
+  @media (min-width: 768px) {
+    font-size: 160px;
+  }
+ }
+
+ .subtitle {
+  font-weight: 700;
+  font-size: 30px;
+  color: #222222;
+  text-align: center;
+  margin-bottom: 30px;
+
+  @media (min-width: 768px) {
+    font-size: 48px;
+  }
+ }
+
+ .button {
+   margin-bottom: 80px;
+ }
+
+ .img {
+   width: 100%;
+   height: auto;
+ }
+}
