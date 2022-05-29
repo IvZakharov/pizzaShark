@@ -1,4 +1,7 @@
 import React from 'react';
+import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { setCategoryId } from '../redux/slices/filterSlice';
 
 import Categories from '../Components/Categories/Categories';
 import Sort from '../Components/Sort/Sort';
@@ -8,26 +11,28 @@ import Skeleton from '../Components/ProductCard/Skeleton';
 function Home() {
   const [items, setItems] = React.useState([]);
   const [isLoaded, setIsLoaded] = React.useState(true);
-  const [categoryId, setCategoryId] = React.useState(0);
-  const [sortType, setSortType] = React.useState({
-    name: 'Популярные',
-    sortProperty: 'rating',
-  });
 
-  const order = sortType.sortProperty.includes('-') ? 'asc' : 'desc';
-  const sortBy = sortType.sortProperty.replace('-', '');
+  const categoryId = useSelector((state) => state.filter.categoryId);
+  const sortType = useSelector((state) => state.filter.sort.sortProperty);
+  const dispatch = useDispatch();
+
+  const onChangeCategory = (id) => {
+    dispatch(setCategoryId(id));
+  };
+
+  const order = sortType.includes('-') ? 'asc' : 'desc';
+  const sortBy = sortType.replace('-', '');
   const category = categoryId > 0 ? `category=${categoryId}` : '';
 
   React.useEffect(() => {
     setIsLoaded(true);
-    fetch(
-      `https://6284d68aa48bd3c40b767a58.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}`,
-    )
+
+    axios
+      .get(
+        'https://6284d68aa48bd3c40b767a58.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}',
+      )
       .then((res) => {
-        return res.json();
-      })
-      .then((arr) => {
-        setItems(arr);
+        setItems(res.data);
         setIsLoaded(false);
       });
   }, [categoryId, sortType]);
@@ -35,8 +40,8 @@ function Home() {
   return (
     <>
       <div className="content__header">
-        <Categories value={categoryId} onChangeCategory={(i) => setCategoryId(i)} />
-        <Sort value={sortType} onChangeSort={(obj) => setSortType(obj)} />
+        <Categories value={categoryId} onChangeCategory={(id) => onChangeCategory(id)} />
+        <Sort />
       </div>
 
       <section className="products">

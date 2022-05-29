@@ -1,7 +1,12 @@
 import React from 'react';
 import styles from './Sort.module.scss';
+import { useSelector, useDispatch } from 'react-redux';
+import { setSort } from '../../redux/slices/filterSlice';
 
-function Sort({ value, onChangeSort }) {
+function Sort() {
+  const dispatch = useDispatch();
+  const sort = useSelector((state) => state.filter.sort);
+
   const sortArr = [
     {
       name: 'Популярные',
@@ -20,7 +25,7 @@ function Sort({ value, onChangeSort }) {
   const [openPopup, setOpenedPopup] = React.useState(false);
 
   const onClickListItem = (obj) => {
-    onChangeSort(obj);
+    dispatch(setSort(obj));
     setOpenedPopup(false);
   };
 
@@ -39,7 +44,7 @@ function Sort({ value, onChangeSort }) {
           />
         </svg>
         <b>Сортировать: </b>
-        <span>{value.name}</span>
+        <span>{sort.name}</span>
       </div>
       {openPopup && (
         <div className={styles.popup}>
@@ -48,7 +53,7 @@ function Sort({ value, onChangeSort }) {
               <li
                 key={i}
                 onClick={() => onClickListItem(obj)}
-                className={obj.name === value.name ? styles.active : ''}>
+                className={obj.name === sort.name ? styles.active : ''}>
                 {obj.name}
               </li>
             ))}
