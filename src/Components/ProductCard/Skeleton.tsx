@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './ProductCard.module.scss';
 import ContentLoader from 'react-content-loader';
 
-const Skeleton = (props) => (
+const Skeleton = (props: any) => (
   <ContentLoader
     className={styles.skeleton}
     speed={2}

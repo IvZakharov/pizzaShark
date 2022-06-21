@@ -1,7 +1,13 @@
+import { type } from '@testing-library/user-event/dist/type';
 import React from 'react';
 import styles from './Categories.module.scss';
 
-function Categories({ value, onChangeCategory }) {
+type CategoriesProps = {
+  value: number;
+  onChangeCategory: (i: number) => void;
+};
+
+const Categories: React.FC<CategoriesProps> = ({ value, onChangeCategory }) => {
   const categoriesArr = ['Все', 'Мясные', 'Морские', 'Вегетарианские', 'Сырные', 'Острые'];
 
   return (
@@ -18,6 +24,6 @@ function Categories({ value, onChangeCategory }) {
       </ul>
     </div>
   );
-}
+};
 
 export default Categories;

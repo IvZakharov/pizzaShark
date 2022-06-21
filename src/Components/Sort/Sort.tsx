@@ -2,12 +2,20 @@ import React from 'react';
 import styles from './Sort.module.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSort } from '../../redux/slices/filterSlice';
+import { RootState } from '../../redux/store';
+import { useRef } from 'react';
 
 function Sort() {
   const dispatch = useDispatch();
-  const sort = useSelector((state) => state.filter.sort);
+  const sort = useSelector((state: RootState) => state.filter.sort);
+  const sortRef = useRef<HTMLDivElement>(null);
 
-  const sortArr = [
+  type SortItem = {
+    name: string;
+    sortProperty: 'rating' | 'price' | '-price';
+  };
+
+  const sortArr: SortItem[] = [
     {
       name: 'Популярные',
       sortProperty: 'rating',
@@ -24,13 +32,27 @@ function Sort() {
 
   const [openPopup, setOpenedPopup] = React.useState(false);
 
-  const onClickListItem = (obj) => {
+  const onClickListItem = (obj: SortItem) => {
     dispatch(setSort(obj));
     setOpenedPopup(false);
   };
 
+  React.useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (sortRef.current && !event.composedPath().includes(sortRef.current)) {
+        setOpenedPopup(false);
+      }
+    };
+
+    document.body.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.body.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className={styles.sort}>
+    <div ref={sortRef} className={styles.sort}>
       <div onClick={() => setOpenedPopup(!openPopup)} className={styles.label}>
         <svg
           width="11"

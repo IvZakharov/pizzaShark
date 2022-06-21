@@ -1,8 +1,13 @@
 import styles from './Header.module.scss';
 import logoSvg from './img/logo.svg';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 
 function Header() {
+  const { items, totalPrice } = useSelector((state: RootState) => state.cart);
+  const totalCount = items.reduce((sum: number, item: any) => sum + item.count, 0);
+
   return (
     <header className={styles.header}>
       <div className="container">
@@ -190,7 +195,7 @@ function Header() {
             </ul>
           </nav>
           <Link to="cart" className={styles.headerCart}>
-            <span className={styles.total}>520</span>
+            <span className={styles.total}>{totalPrice} Р</span>
             <i className={styles.icon}>
               <svg
                 width="30"
@@ -204,7 +209,7 @@ function Header() {
                 />
               </svg>
             </i>
-            <span className={styles.count}>3</span>
+            <span className={styles.count}>{totalCount}</span>
           </Link>
         </div>
       </div>

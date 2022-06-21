@@ -1,20 +1,59 @@
 import styles from './Cart.module.scss';
-import img from './img/1.jpeg';
+import { useAppDispatch } from '../../redux/store';
+import { addItem, minusItem, removeItem } from '../../redux/slices/cartSlice';
 
-function CartItem() {
+type CartItemProps = {
+  id: string;
+  title: string;
+  type: string;
+  size: number;
+  price: number;
+  count: number;
+  imageUrl: string;
+};
+
+const CartItem: React.FC<CartItemProps> = ({ id, title, type, size, price, count, imageUrl }) => {
+  const dispatch = useAppDispatch();
+
+  const onCLickPlus = () => {
+    dispatch(
+      addItem({
+        id,
+        type,
+        size,
+        title: '',
+        price: 0,
+        imageUrl: '',
+      }),
+    );
+  };
+
+  const onClickMinus = () => {
+    dispatch(minusItem({ id, type, size }));
+  };
+
+  const onClickRemove = () => {
+    dispatch(removeItem({ id, type, size }));
+  };
+
   return (
     <div className={styles.cartItem}>
       <div className={styles.firstBlock}>
         <div className={styles.imgBox}>
-          <img className={styles.img} src={img} alt="Pizza" />
+          <img className={styles.img} src={imageUrl} alt={title} />
         </div>
         <div className={styles.info}>
-          <h3>Сырная</h3>
-          <p>Тонкое, 30 см.</p>
+          <h3>{title}</h3>
+          <p>
+            {type}, {size} см.
+          </p>
         </div>
       </div>
       <div className={styles.count}>
-        <button className={styles.button}>
+        <button
+          disabled={count <= 1 ? true : false}
+          onClick={onClickMinus}
+          className={styles.button}>
           <svg
             width="10"
             height="2"
@@ -27,8 +66,8 @@ function CartItem() {
             />
           </svg>
         </button>
-        <b>1</b>
-        <button className={styles.button}>
+        <b>{count}</b>
+        <button onClick={onCLickPlus} className={styles.button}>
           <svg
             width="10"
             height="10"
@@ -43,11 +82,11 @@ function CartItem() {
         </button>
       </div>
       <div className={styles.price}>
-        <b>770 ₽</b>
+        <b>{count * price} ₽</b>
       </div>
       <div></div>
       <div className={styles.remove}>
-        <button className={styles.button}>
+        <button onClick={onClickRemove} className={styles.button}>
           <svg
             width="10"
             height="9"
@@ -63,6 +102,6 @@ function CartItem() {
       </div>
     </div>
   );
-}
+};
 
 export default CartItem;

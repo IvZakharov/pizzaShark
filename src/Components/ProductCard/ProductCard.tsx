@@ -1,11 +1,46 @@
 import styles from './ProductCard.module.scss';
 import React from 'react';
 
-function ProductCard({ id, title, description, imageUrl, price, types, sizes }) {
-  const [activeSizes, setActiveSizes] = React.useState(0);
-  const [activeTypes, setActiveTypes] = React.useState(0);
+import { useDispatch } from 'react-redux';
+import { addItem, CartItem } from '../../redux/slices/cartSlice';
+
+type ProductCard = {
+  id: string;
+  title: string;
+  description: string;
+  imageUrl: string;
+  price: number;
+  types: number[];
+  sizes: number[];
+};
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+const ProductCard: React.FC<ProductCard> = ({
+  id,
+  title,
+  description,
+  imageUrl,
+  price,
+  types,
+  sizes,
+}) => {
+  const dispatch = useDispatch();
+  const [activeSize, setActiveSize] = React.useState(0);
+  const [activeType, setActiveType] = React.useState(0);
 
   const typesNames = ['Тонкое', 'Традиционное'];
+
+  const onCLickAdd = () => {
+    const item: CartItem = {
+      id,
+      title,
+      price,
+      imageUrl,
+      type: typesNames[activeType],
+      size: activeSize,
+    };
+    dispatch(addItem(item));
+  };
 
   return (
     <article key={id} className={styles.productCard}>
@@ -19,8 +54,8 @@ function ProductCard({ id, title, description, imageUrl, price, types, sizes }) 
           {types.map((type, i) => (
             <li
               key={type}
-              onClick={() => setActiveTypes(i)}
-              className={activeTypes === i ? styles.active : ''}>
+              onClick={() => setActiveType(i)}
+              className={activeType === i ? styles.active : ''}>
               {typesNames[type]}
             </li>
           ))}
@@ -29,8 +64,8 @@ function ProductCard({ id, title, description, imageUrl, price, types, sizes }) 
           {sizes.map((size, i) => (
             <li
               key={size}
-              onClick={() => setActiveSizes(i)}
-              className={activeSizes === i ? styles.active : ''}>
+              onClick={() => setActiveSize(i)}
+              className={activeSize === i ? styles.active : ''}>
               {size} см
             </li>
           ))}
@@ -42,7 +77,7 @@ function ProductCard({ id, title, description, imageUrl, price, types, sizes }) 
           <span>{price} Р</span>
         </p>
 
-        <button className={styles.addToCart}>
+        <button onClick={() => onCLickAdd()} className={styles.addToCart}>
           <i>
             <svg
               width="16"
@@ -61,6 +96,6 @@ function ProductCard({ id, title, description, imageUrl, price, types, sizes }) 
       </div>
     </article>
   );
-}
+};
 
 export default ProductCard;

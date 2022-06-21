@@ -3,10 +3,11 @@ import styles from './NotFound.module.scss';
 import { Link } from 'react-router-dom';
 import img from './img/img.svg';
 
-function NotFound() {
+const NotFound: React.FC = () => {
   return (
     <div className={styles.notFound}>
       <h1 className={styles.title}>404</h1>
+
       <p className={styles.subtitle}>Такой страницы нет :(</p>
       <Link to="/" className={`${styles.button} button`}>
         Вернуться на главную
