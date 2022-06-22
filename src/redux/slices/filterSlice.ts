@@ -25,10 +25,10 @@ const filterSLice = createSlice({
     setCategoryId(state: { categoryId: number; }, action: PayloadAction<number>) {
       state.categoryId = action.payload;
     },
-    setSort(state, action: PayloadAction<Sort>) {
+    setSort(state: any, action: PayloadAction<Sort>) {
       state.sort = action.payload;
     },
-    setFilters(state, action: PayloadAction<filterSLiceState>) {
+    setFilters(state: any, action: PayloadAction<filterSLiceState>) {
       state.sort = action.payload;
       state.categoryId = Number(action.payload.categoryId);
     },

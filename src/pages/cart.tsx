@@ -7,7 +7,9 @@ import { RootState, useAppDispatch } from '../redux/store';
 function Cart() {
   const dispatch = useAppDispatch();
   const { items, totalPrice } = useSelector((state: RootState) => state.cart);
-  const totalCount = items.reduce((sum: number, item: any) => sum + item.count, 0);
+  const totalCount = items.reduce((sum, item) => sum + item.count, 0);
+
+  console.log(totalPrice);
 
   const onClickClear = () => {
     dispatch(clearItem());
@@ -91,7 +93,7 @@ function Cart() {
 
       <ul className="cart__list">
         {items.map((obj, i) => (
-          <CartItem count={0} key={i} {...obj} />
+          <CartItem key={i} {...obj} />
         ))}
       </ul>
 

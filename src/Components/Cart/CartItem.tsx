@@ -24,6 +24,7 @@ const CartItem: React.FC<CartItemProps> = ({ id, title, type, size, price, count
         title: '',
         price: 0,
         imageUrl: '',
+        count: 0,
       }),
     );
   };

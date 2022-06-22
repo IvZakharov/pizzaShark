@@ -38,6 +38,7 @@ const ProductCard: React.FC<ProductCard> = ({
       imageUrl,
       type: typesNames[activeType],
       size: activeSize,
+      count: 0,
     };
     dispatch(addItem(item));
   };

@@ -1,4 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { calcTotalPrice } from '../../utils/calcTotalPrice';
+import { getCartFromLc } from '../../utils/getCartFromLC';
 
 export type CartItem = {
   id: string,
@@ -7,6 +9,7 @@ export type CartItem = {
   imageUrl: string,
   type: string,
   size: number,
+  count: number
 }
 
 interface CartSliceState {
@@ -14,17 +17,19 @@ interface CartSliceState {
   items: CartItem[],
 }
 
+const {items, totalPrice } = getCartFromLc()
+
 const initialState: CartSliceState = {
-  totalPrice: 0,
-  items: [],
+  items,
+  totalPrice
 };
 
 const filterSLice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addItem(state, action: PayloadAction<CartItem>) {
-      const findItem = state.items.find((obj) => {
+    addItem(state: any, action: PayloadAction<CartItem>) {
+      const findItem = state.items.find((obj: CartItem) => {
         if (
           obj.id === action.payload.id &&
           obj.type === action.payload.type &&
@@ -45,11 +50,11 @@ const filterSLice = createSlice({
         });
       }
 
-      state.totalPrice = state.items.reduce((sum, obj) => obj.price + sum, 0);
+      state.totalPrice = calcTotalPrice(state.items)
     },
 
-    minusItem(state, action: PayloadAction<{id: string, type: string, size: number}>) {
-      const findItem = state.items.find((obj) => {
+    minusItem(state: any, action: PayloadAction<{id: string, type: string, size: number}>) {
+      const findItem = state.items.find((obj: CartItem) => {
         if (
           obj.id === action.payload.id &&
           obj.type === action.payload.type &&
@@ -62,11 +67,11 @@ const filterSLice = createSlice({
       });
 
       findItem.count--;
-      state.totalPrice = state.items.reduce((sum, obj) => obj.price + sum, 0);
+      state.totalPrice = state.totalPrice = calcTotalPrice(state.items);
     },
 
-    removeItem(state, action: PayloadAction<{id: string, type: string, size: number}>) {
-      state.items = state.items.filter((obj) => {
+    removeItem(state: any, action: PayloadAction<{id: string, type: string, size: number}>) {
+      state.items = state.items.filter((obj: CartItem) => {
         if (
           obj.id !== action.payload.id ||
           obj.type !== action.payload.type ||
@@ -79,7 +84,7 @@ const filterSLice = createSlice({
       });
     },
 
-    clearItem(state) {
+    clearItem(state: any) {
       state.items = [];
       state.totalPrice = 0;
     },
